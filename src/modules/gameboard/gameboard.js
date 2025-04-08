@@ -1,4 +1,4 @@
-import { Ship } from "../ship/ship";
+import { Ship } from "../../ship/ship";
 
 export class Gameboard {
   constructor() {
