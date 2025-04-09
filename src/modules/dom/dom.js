@@ -8,10 +8,13 @@ export function renderGameboard(player) {
       cell.classList.toggle("cell");
       if (gameboard.cells[i][j].status === 'missed') {
         cell.classList.toggle("miss");
+        cell.textContent = 'x';
       } else if (gameboard.cells[i][j].status === 'hit') {
         cell.classList.toggle('hit');
+        cell.textContent = 'X'
       } else if (gameboard.cells[i][j].status === 'ship') {
         cell.classList.toggle('ship');
+
       }
       field.appendChild(cell);
     }
