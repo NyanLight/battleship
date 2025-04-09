@@ -1,8 +1,8 @@
-import { Ship } from "../../ship/ship";
+import { Ship } from "../ship/ship.js";
 
 export class Gameboard {
   constructor() {
-    this.board = this.createBoard();
+    this.cells = this.createBoard();
     this.misses = [];
     this.heads = [];
   }
@@ -26,15 +26,15 @@ export class Gameboard {
     array.forEach((coordinates) => {
       const x = coordinates[0];
       const y = coordinates[1];
-      this.board[x][y] = ship;
+      this.cells[x][y] = ship;
     });
   }
 
   receiveAttack(x, y) {
-    if (this.board[x][y] === null) {
+    if (this.cells[x][y] === null) {
       this.misses.push([x, y]);
     } else {
-      this.board[x][y].hit();
+      this.cells[x][y].hit();
     }
   }
 
@@ -42,7 +42,7 @@ export class Gameboard {
     for (let i = 0; i < this.heads.length; i++) {
       const x = this.heads[i][0];
       const y = this.heads[i][1];
-      if (!this.board[x][y].isSunk()) return false;
+      if (!this.cells[x][y].isSunk()) return false;
     }
     return true;
   }
