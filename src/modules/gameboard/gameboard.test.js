@@ -29,19 +29,11 @@ describe("receiveAttack misses", () => {
   ]);
   gb.receiveAttack(0, 1);
   it("if enemy missed, gameboard records this", () => {
-    expect(
-      gb.misses.find(
-        (element) => JSON.stringify(element) === JSON.stringify([0, 1])
-      )
-    ).not.toBe(undefined);
+    expect(gb.cells[0][1].status).toBe("missed");
   });
   gb.receiveAttack(2, 3);
   it("if enemy hit the ship, gameboard doesn't record this to misses", () => {
-    expect(
-      gb.misses.find(
-        (element) => JSON.stringify(element) === JSON.stringify([2, 3])
-      )
-    ).toBe(undefined);
+    expect(gb.cells[2][3].status).toBe("hit");
   });
 });
 

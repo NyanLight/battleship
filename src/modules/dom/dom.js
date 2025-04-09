@@ -6,12 +6,12 @@ export function renderGameboard(player) {
     for (let j = 0; j < gameboard.cells[i].length; j++) {
       const cell = document.createElement("div");
       cell.classList.toggle("cell");
-      if (
-        gameboard.misses.find(
-          (coord) => JSON.stringify(coord) === JSON.stringify([i, j])
-        ) !== undefined
-      ) {
+      if (gameboard.cells[i][j].status === 'missed') {
         cell.classList.toggle("miss");
+      } else if (gameboard.cells[i][j].status === 'hit') {
+        cell.classList.toggle('hit');
+      } else if (gameboard.cells[i][j].status === 'ship') {
+        cell.classList.toggle('ship');
       }
       field.appendChild(cell);
     }

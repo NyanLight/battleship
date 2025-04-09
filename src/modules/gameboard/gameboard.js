@@ -1,9 +1,9 @@
 import { Ship } from "../ship/ship.js";
+import { Cell } from "../cell/cell.js";
 
 export class Gameboard {
   constructor() {
     this.cells = this.createBoard();
-    this.misses = [];
     this.heads = [];
   }
 
@@ -12,7 +12,7 @@ export class Gameboard {
     for (let i = 0; i < 10; i++) {
       let row = [];
       for (let j = 0; j < 10; j++) {
-        let cell = null;
+        let cell = new Cell();
         row.push(cell);
       }
       board.push(row);
@@ -20,21 +20,23 @@ export class Gameboard {
     return board;
   }
 
-  placeShip(array) {
+    placeShip(array) {
     this.heads.push(array[0]);
     const ship = new Ship(array.length);
     array.forEach((coordinates) => {
       const x = coordinates[0];
       const y = coordinates[1];
-      this.cells[x][y] = ship;
+      this.cells[x][y].ship = ship;
+      this.cells[x][y].status = 'ship';
     });
   }
 
   receiveAttack(x, y) {
-    if (this.cells[x][y] === null) {
-      this.misses.push([x, y]);
+    if (this.cells[x][y].status === 'empty') {
+      this.cells[x][y].status = 'missed';
     } else {
-      this.cells[x][y].hit();
+      this.cells[x][y].ship.hit();
+      this.cells[x][y].status = 'hit';
     }
   }
 
@@ -42,7 +44,7 @@ export class Gameboard {
     for (let i = 0; i < this.heads.length; i++) {
       const x = this.heads[i][0];
       const y = this.heads[i][1];
-      if (!this.cells[x][y].isSunk()) return false;
+      if (!this.cells[x][y].ship.isSunk()) return false;
     }
     return true;
   }
