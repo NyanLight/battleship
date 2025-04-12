@@ -1,3 +1,10 @@
+export function updateRender(player) {
+  const fieldNodes = document.getElementsByClassName("gameboard");
+  const field = player.name !== "Computer" ? fieldNodes[0] : fieldNodes[1];
+  field.innerHTML = ''; 
+  renderGameboard(player);
+}
+
 export function renderGameboard(player) {
   const fieldNodes = document.getElementsByClassName("gameboard");
   const field = player.name !== "Computer" ? fieldNodes[0] : fieldNodes[1];
@@ -14,9 +21,14 @@ export function renderGameboard(player) {
         cell.textContent = 'X'
       } else if (gameboard.cells[i][j].status === 'ship') {
         cell.classList.toggle('ship');
-
       }
+      if (gameboard.cells[i][j].status === 'ship' || gameboard.cells[i][j].status === 'empty')   cell.addEventListener('click', () => attackCell(i, j, player));
       field.appendChild(cell);
     }
   }
+}
+
+export function attackCell(x, y, target) {
+  target.gameboard.receiveAttack(x, y);
+  updateRender(target);
 }
