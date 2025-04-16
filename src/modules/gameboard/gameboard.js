@@ -34,9 +34,11 @@ export class Gameboard {
   receiveAttack(x, y) {
     if (this.cells[x][y].status === 'empty') {
       this.cells[x][y].status = 'missed';
+      return 'missed';
     } else {
       this.cells[x][y].ship.hit();
       this.cells[x][y].status = 'hit';
+      return 'hit';
     }
   }
 
