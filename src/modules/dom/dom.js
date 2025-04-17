@@ -7,6 +7,11 @@ export function updateRender(player) {
   renderGameboard(player);
 }
 
+export function updateStatus(message) {
+  const status = document.getElementById('status');
+  status.textContent = message;
+ }
+
 export function toggleBoard(target) {
   const fieldNodes = document.getElementsByClassName("gameboard");
   fieldNodes[0].classList.toggle('disabled');

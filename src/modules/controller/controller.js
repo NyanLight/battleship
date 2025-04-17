@@ -1,4 +1,9 @@
-import { toggleBoard, renderGameboard, updateRender } from "../dom/dom.js";
+import {
+  toggleBoard,
+  renderGameboard,
+  updateRender,
+  updateStatus,
+} from "../dom/dom.js";
 import { Player } from "../player/player.js";
 
 export const player = new Player("player");
@@ -33,9 +38,12 @@ export function playerRound(x, y) {
   updateRender(cpu);
   if (cpu.gameboard.cells[x][y].status !== "hit") {
     toggleBoard();
+    updateStatus("Miss! CPU attacks!");
     computerRound(player);
+  } else if (checkWin(player)) {
+    updateStatus("Player is a winner!");
   } else {
-    checkWin(player);
+    updateStatus("Hit! Player strikes again!");
   }
 }
 
@@ -45,11 +53,12 @@ function computerRound() {
     player.gameboard.receiveAttack(x, y);
     updateRender(player);
     if (player.gameboard.cells[x][y].status !== "hit") {
+      updateStatus("Miss! Player, attack!");
       toggleBoard();
-      console.log("missed");
     } else if (checkWin(cpu)) {
-      alert("CPU is GOAT");
+      updateStatus("Cpu is a winner!");
     } else {
+      updateStatus("Hit! CPU strike again!");
       computerRound();
     }
   }, 1000);

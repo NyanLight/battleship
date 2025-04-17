@@ -38,6 +38,11 @@
     background-color: rgba(5, 5, 5, 0.527);
   }
 
+  .status {
+    text-align: center;
+    font-weight: bold;
+  }
+
   .cell {
     height: 50px;
     width: 50px;
