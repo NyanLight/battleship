@@ -31,6 +31,10 @@ export class Gameboard {
     });
   }
 
+  clearGameboard() {
+    this.cells = this.createBoard();
+  }
+
   receiveAttack(x, y) {
     if (this.cells[x][y].status === 'empty') {
       this.cells[x][y].status = 'missed';

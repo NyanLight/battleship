@@ -3,6 +3,9 @@ import {
   renderGameboard,
   updateRender,
   updateStatus,
+  resetStyles,
+  toggleRestart,
+  blockBoards,
 } from "../dom/dom.js";
 import { Player } from "../player/player.js";
 
@@ -15,6 +18,14 @@ function randomCoordinates() {
     coordinates.push(Math.floor(Math.random() * 10));
   }
   return coordinates;
+}
+
+export function restartGame() {
+  player.gameboard.clearGameboard();
+  cpu.gameboard.clearGameboard();
+  resetStyles();
+  toggleRestart();
+  playGame();
 }
 
 function getCpuTurn() {
@@ -42,6 +53,8 @@ export function playerRound(x, y) {
     computerRound(player);
   } else if (checkWin(player)) {
     updateStatus("Player is a winner!");
+    blockBoards();
+    toggleRestart();
   } else {
     updateStatus("Hit! Player strikes again!");
   }
@@ -57,6 +70,8 @@ function computerRound() {
       toggleBoard();
     } else if (checkWin(cpu)) {
       updateStatus("Cpu is a winner!");
+      blockBoards();
+      toggleRestart();
     } else {
       updateStatus("Hit! CPU strike again!");
       computerRound();

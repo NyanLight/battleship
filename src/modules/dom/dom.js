@@ -1,4 +1,7 @@
-import { player, playerRound } from "../controller/controller";
+import { restartGame, playerRound } from "../controller/controller";
+
+const restartBtn = document.getElementById('restart');
+restartBtn.addEventListener('click', restartGame);
 
 export function updateRender(player) {
   const fieldNodes = document.getElementsByClassName("gameboard");
@@ -18,10 +21,29 @@ export function toggleBoard(target) {
   fieldNodes[1].classList.toggle('disabled');
 }
 
+export function toggleRestart() {
+  const restartBtn = document.getElementById('restart');
+  restartBtn.classList.toggle('hidden');
+  restartBtn.classList.toggle('visible');
+}
+
+export function resetStyles() {
+  const fieldNodes = document.getElementsByClassName("gameboard");
+  fieldNodes[0].classList.remove('disabled');
+  fieldNodes[1].classList.add('disabled');
+}
+
+export function blockBoards() {
+  const fieldNodes = document.getElementsByClassName("gameboard");
+  fieldNodes[0].classList.add('disabled');
+  fieldNodes[1].classList.add('disabled');
+}
+
 
 export function renderGameboard(player) {
   const fieldNodes = document.getElementsByClassName("gameboard");
   const field = player.type !== "cpu" ? fieldNodes[0] : fieldNodes[1];
+  field.innerHTML = null;
   const gameboard = player.gameboard;
   for (let i = 0; i < gameboard.cells.length; i++) {
     for (let j = 0; j < gameboard.cells[i].length; j++) {

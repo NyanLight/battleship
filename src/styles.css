@@ -1,73 +1,102 @@
 * {
-    font-family: "Press Start 2P", system-ui;
-    font-weight: 400;
-    font-style: normal;
-    color: #4F3D2E;
-  }
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  color: #4f3d2e;
+}
 
-  body {
-    background:  url('./assets/background.png');
-    background-size: cover;
-  }
+body {
+  background: url("./assets/background.png");
+  background-size: cover;
+}
 
-  h1 {
-    text-align: center;
-    font-size: 5.5rem;
-  }
+h1 {
+  text-align: center;
+  font-size: 5.5rem;
+}
 
-  .container {
-    display: flex;
-    justify-content: space-around;
-  }
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
 
-  .player {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-  }
+.player {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
 
+.gameboard {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 2px;
+}
 
-  .gameboard {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 2px;
-  }
+.disabled {
+  pointer-events: none;
+  background-color: rgba(5, 5, 5, 0.527);
+}
 
-  .disabled {
-    pointer-events: none;
-    background-color: rgba(5, 5, 5, 0.527);
-  }
+.status {
+  text-align: center;
+  font-weight: bold;
+}
 
-  .status {
-    text-align: center;
-    font-weight: bold;
-  }
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
-  .cell {
-    height: 50px;
-    width: 50px;
-    outline: 5px solid #4F402D;
-    background-color: #4f402d96;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-  }
+.restart {
+  padding: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  background-color: #cd9c61b2;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px #ac8d55, 4px 4px 0 0 #000;
+}
 
-  .miss {
-    color: rgb(97, 175, 248);
-    font-size: 1.2rem;
-  }
+.restart:active {
+  transform: scale(0.9);
+  transition: 0.1s ease-in-out;
+}
 
+.cell {
+  height: 50px;
+  width: 50px;
+  outline: 5px solid #4f402d;
+  background-color: #4f402d96;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
 
-  .hit {
-    font-size: 2rem;
-    color: rgb(189, 21, 55);
-    background-color: black;
-  }
+.hidden {
+  visibility: hidden;
+  opacity: 0%;
+}
 
-  .ship {
-    background-color: black;
-  }
-  
-  
+.visible {
+  visibility: visible;
+  opacity: 100%;
+  transition: 0.5s ease-in-out;
+}
+
+.miss {
+  color: rgb(97, 175, 248);
+  font-size: 1.2rem;
+}
+
+.hit {
+  font-size: 2rem;
+  color: rgb(189, 21, 55);
+  background-color: black;
+}
+
+.ship {
+  background-color: black;
+}

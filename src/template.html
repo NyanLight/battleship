@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Battleship</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header>
-        <h1>BATTLESHIP</h1>
+      <h1>BATTLESHIP</h1>
     </header>
     <main>
-        <h2 class="status" id="status">CPU attacks</h2>
-        <div class="container">
-            <div class="field">
-                <h2 class="player">Player</h2>
-                <div class="gameboard"></div>
-            </div>
-            <div class="field">
-                <h2 class="player">CPU</h2>
-                <div class="gameboard disabled"></div>
-            </div>
+      <h2 class="status" id="status">CPU attacks</h2>
+      <div class="container">
+        <div class="field">
+          <h2 class="player">Player</h2>
+          <div class="gameboard"></div>
         </div>
+        <div class="field">
+          <h2 class="player">CPU</h2>
+          <div class="gameboard disabled"></div>
+        </div>
+      </div>
+      <div class="btnContainer">
+        <button id="restart" class="restart hidden">RESTART</button>
+      </div>
     </main>
-</body>
+  </body>
 </html>
