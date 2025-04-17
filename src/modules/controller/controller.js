@@ -1,4 +1,4 @@
-import { renderGameboard, updateRender } from "../dom/dom.js";
+import { toggleBoard, renderGameboard, updateRender } from "../dom/dom.js";
 import { Player } from "../player/player.js";
 
 export const player = new Player("player");
@@ -14,11 +14,12 @@ function randomCoordinates() {
 
 function getCpuTurn() {
   let [x, y] = randomCoordinates();
-  if (
-    player.gameboard.cells[x][y].status !== "ship" ||
+  while (
+    player.gameboard.cells[x][y].status !== "ship" &&
     player.gameboard.cells[x][y].status !== "empty"
-  )
+  ) {
     [x, y] = randomCoordinates();
+  }
   return [x, y];
 }
 
@@ -31,6 +32,7 @@ export function playerRound(x, y) {
   cpu.gameboard.receiveAttack(x, y);
   updateRender(cpu);
   if (cpu.gameboard.cells[x][y].status !== "hit") {
+    toggleBoard();
     computerRound(player);
   } else {
     checkWin(player);
@@ -43,11 +45,14 @@ function computerRound() {
     player.gameboard.receiveAttack(x, y);
     updateRender(player);
     if (player.gameboard.cells[x][y].status !== "hit") {
+      toggleBoard();
       console.log("missed");
     } else if (checkWin(cpu)) {
-      alert('CPU is GOAT')
-    } 
-  }, 1000)
+      alert("CPU is GOAT");
+    } else {
+      computerRound();
+    }
+  }, 1000);
 }
 
 export function playGame() {

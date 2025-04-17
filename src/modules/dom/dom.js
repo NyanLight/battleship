@@ -1,4 +1,4 @@
-import { playerRound } from "../controller/controller";
+import { player, playerRound } from "../controller/controller";
 
 export function updateRender(player) {
   const fieldNodes = document.getElementsByClassName("gameboard");
@@ -6,6 +6,13 @@ export function updateRender(player) {
   field.innerHTML = "";
   renderGameboard(player);
 }
+
+export function toggleBoard(target) {
+  const fieldNodes = document.getElementsByClassName("gameboard");
+  fieldNodes[0].classList.toggle('disabled');
+  fieldNodes[1].classList.toggle('disabled');
+}
+
 
 export function renderGameboard(player) {
   const fieldNodes = document.getElementsByClassName("gameboard");
