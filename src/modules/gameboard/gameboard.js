@@ -43,6 +43,7 @@ export class Gameboard {
 
   clearGameboard() {
     this.cells = this.createBoard();
+    this.heads = [];
   }
 
   receiveAttack(x, y) {
