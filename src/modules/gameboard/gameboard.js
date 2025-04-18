@@ -24,12 +24,12 @@ export class Gameboard {
     for (let i = 0; i < array.length; i++) {
       const x = array[i][0];
       const y = array[i][1];
-      if (x > 9 || y > 9 || x < 0 || y < 0) return false; 
-      if (this.cells[x][y].status === 'ship') return false; 
+      if (x > 9 || y > 9 || x < 0 || y < 0) return false;
+      if (this.cells[x][y].status === "ship") return false;
     }
     return true;
   }
-  
+
   placeShip(array) {
     this.heads.push(array[0]);
     const ship = new Ship(array.length);
@@ -37,7 +37,7 @@ export class Gameboard {
       const x = coordinates[0];
       const y = coordinates[1];
       this.cells[x][y].ship = ship;
-      this.cells[x][y].status = 'ship';
+      this.cells[x][y].status = "ship";
     });
   }
 
@@ -46,13 +46,13 @@ export class Gameboard {
   }
 
   receiveAttack(x, y) {
-    if (this.cells[x][y].status === 'empty') {
-      this.cells[x][y].status = 'missed';
-      return 'missed';
+    if (this.cells[x][y].status === "empty") {
+      this.cells[x][y].status = "missed";
+      return "missed";
     } else {
       this.cells[x][y].ship.hit();
-      this.cells[x][y].status = 'hit';
-      return 'hit';
+      this.cells[x][y].status = "hit";
+      return "hit";
     }
   }
 

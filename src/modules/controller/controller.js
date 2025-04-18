@@ -73,14 +73,14 @@ function computerRound() {
 }
 
 function randomPlace(length) {
-  let array = [[10,10]];
+  let array = [[10, 10]];
   do {
     let head = randomCoordinates();
     let direction = Math.floor(Math.random) < 0.5 ? "v" : "h";
     while (cpu.gameboard.cells[head[0]][head[1]].status !== "empty") {
       head = randomCoordinates();
     }
-     array = [head];
+    array = [head];
     if (length === 1) return [head];
     for (let i = 1; i < length; i++) {
       if (direction === "h") {
@@ -89,8 +89,7 @@ function randomPlace(length) {
         array.push([head[0], head[1] + i]);
       }
     }
-  }
-  while (!cpu.gameboard.canPlaceAt(array));
+  } while (!cpu.gameboard.canPlaceAt(array));
   return array;
 }
 
