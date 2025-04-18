@@ -8,17 +8,10 @@ import {
   blockBoards,
 } from "../dom/dom.js";
 import { Player } from "../player/player.js";
+import { randomCoordinates } from "../utils/utils.js";
 
 export const player = new Player("player");
 export const cpu = new Player("cpu");
-
-function randomCoordinates() {
-  let coordinates = [];
-  for (let i = 0; i < 2; i++) {
-    coordinates.push(Math.floor(Math.random() * 10));
-  }
-  return coordinates;
-}
 
 export function restartGame() {
   player.gameboard.clearGameboard();
@@ -79,15 +72,43 @@ function computerRound() {
   }, 1000);
 }
 
+function randomPlace(length) {
+  let array = [[10,10]];
+  do {
+    let head = randomCoordinates();
+    let direction = Math.floor(Math.random) < 0.5 ? "v" : "h";
+    while (cpu.gameboard.cells[head[0]][head[1]].status !== "empty") {
+      head = randomCoordinates();
+    }
+     array = [head];
+    if (length === 1) return [head];
+    for (let i = 1; i < length; i++) {
+      if (direction === "h") {
+        array.push([head[0] + i, head[1]]);
+      } else {
+        array.push([head[0], head[1] + i]);
+      }
+    }
+  }
+  while (!cpu.gameboard.canPlaceAt(array));
+  return array;
+}
+
 export function playGame() {
   player.gameboard.placeShip([
     [0, 0],
     [0, 1],
   ]);
-  cpu.gameboard.placeShip([
-    [0, 0],
-    [0, 1],
-  ]);
+  cpu.gameboard.placeShip(randomPlace(1));
+  cpu.gameboard.placeShip(randomPlace(1));
+  cpu.gameboard.placeShip(randomPlace(1));
+  cpu.gameboard.placeShip(randomPlace(1));
+  cpu.gameboard.placeShip(randomPlace(2));
+  cpu.gameboard.placeShip(randomPlace(2));
+  cpu.gameboard.placeShip(randomPlace(2));
+  cpu.gameboard.placeShip(randomPlace(4));
+  cpu.gameboard.placeShip(randomPlace(4));
+  cpu.gameboard.placeShip(randomPlace(6));
 
   renderGameboard(player);
   renderGameboard(cpu);
