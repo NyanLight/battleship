@@ -33,14 +33,24 @@ h1 {
   gap: 2px;
 }
 
-.disabled {
+/* .disabled {
   pointer-events: none;
   background-color: rgba(5, 5, 5, 0.527);
-}
+} */
 
 .status {
   text-align: center;
   font-weight: bold;
+}
+
+.drops {
+  padding-top: 1rem;
+}
+
+
+
+.dragging {
+  opacity: 60%;
 }
 
 .btnContainer {
@@ -73,6 +83,24 @@ h1 {
   align-items: center;
   justify-content: center;
   user-select: none;
+}
+.draggable {
+  cursor: move;
+}
+
+.drops {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.dragover {
+  background-color: greenyellow;
+}
+
+.drop {
+  display: flex;
+  flex-direction: row;
 }
 
 .hidden {

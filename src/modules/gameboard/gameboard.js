@@ -19,7 +19,6 @@ export class Gameboard {
     }
     return board;
   }
-
   canPlaceAt(array) {
     for (let i = 0; i < array.length; i++) {
       const x = array[i][0];

@@ -1,5 +1,6 @@
 import { restartGame, playerRound } from "../controller/controller";
 
+const draggables = document.querySelectorAll(".draggable");
 const restartBtn = document.getElementById("restart");
 restartBtn.addEventListener("click", restartGame);
 
@@ -48,6 +49,7 @@ export function renderGameboard(player) {
     for (let j = 0; j < gameboard.cells[i].length; j++) {
       const cell = document.createElement("div");
       cell.classList.toggle("cell");
+      if (player.type === "player") cell.classList.add("dropable");
       if (gameboard.cells[i][j].status === "missed") {
         cell.classList.toggle("miss");
         cell.textContent = "x";
@@ -63,7 +65,43 @@ export function renderGameboard(player) {
           player.gameboard.cells[i][j].status === "empty")
       )
         cell.addEventListener("click", () => playerRound(i, j));
+      if (player.type !== "cpu") {
+        cell.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          cell.classList.add("dragover");
+        });
+
+        cell.addEventListener("dragleave", (e) => {
+          cell.classList.remove("dragover");
+        });
+
+        cell.addEventListener("drop", (e) => {
+          player.gameboard.placeShip([[i, j]]);
+          e.preventDefault();
+          const data = e.dataTransfer.getData("text");
+          console.log(data);
+          updateRender(player);
+        });
+      }
+
       field.appendChild(cell);
     }
   }
 }
+
+draggables.forEach((draggable) => {
+  draggable.addEventListener("dragstart", (ev) => {
+    draggable.classList.add("dragging");
+    ev.dataTransfer.clearData();
+    ev.dataTransfer.setData("text/plain", draggable.children.length);
+  });
+
+  draggable.addEventListener("dragend", (e) => {
+    draggable.classList.remove("dragging");
+  });
+});
+
+const gameboards = document.getElementsByClassName("gameboard");
+gameboards[0].addEventListener("dragover", (e) => {
+  e.preventDefault();
+});
