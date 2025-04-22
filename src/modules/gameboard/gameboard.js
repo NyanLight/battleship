@@ -23,7 +23,7 @@ export class Gameboard {
     for (let i = 0; i < array.length; i++) {
       const x = array[i][0];
       const y = array[i][1];
-      if (x > 9 || y > 9 || x < 0 || y < 0) return false;
+      if (x > 9 || y > 9 || x < 0 || y < 0 || x === undefined) return false;
       if (this.cells[x][y].status === "ship") return false;
     }
     return true;

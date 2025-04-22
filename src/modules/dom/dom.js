@@ -1,5 +1,7 @@
 import { restartGame, playerRound } from "../controller/controller";
 
+let dragLength;
+
 const draggables = document.querySelectorAll(".draggable");
 const restartBtn = document.getElementById("restart");
 restartBtn.addEventListener("click", restartGame);
@@ -65,21 +67,26 @@ export function renderGameboard(player) {
           player.gameboard.cells[i][j].status === "empty")
       )
         cell.addEventListener("click", () => playerRound(i, j));
+      cell.dataset.xy = `${i},${j}`;
       if (player.type !== "cpu") {
         cell.addEventListener("dragover", (e) => {
           e.preventDefault();
-          cell.classList.add("dragover");
+          if (calculatePlace(i, j, player)) {
+            cell.classList.add("dragover");
+            handleDragOver(i, j, player);
+          }
         });
 
         cell.addEventListener("dragleave", (e) => {
-          cell.classList.remove("dragover");
+          const dragovers = document.querySelectorAll(".dragover");
+          dragovers.forEach((target) => {
+            target.classList.remove("dragover");
+          });
         });
 
         cell.addEventListener("drop", (e) => {
           player.gameboard.placeShip([[i, j]]);
           e.preventDefault();
-          const data = e.dataTransfer.getData("text");
-          console.log(data);
           updateRender(player);
         });
       }
@@ -92,8 +99,7 @@ export function renderGameboard(player) {
 draggables.forEach((draggable) => {
   draggable.addEventListener("dragstart", (ev) => {
     draggable.classList.add("dragging");
-    ev.dataTransfer.clearData();
-    ev.dataTransfer.setData("text/plain", draggable.children.length);
+    dragLength = draggable.children.length;
   });
 
   draggable.addEventListener("dragend", (e) => {
@@ -105,3 +111,26 @@ const gameboards = document.getElementsByClassName("gameboard");
 gameboards[0].addEventListener("dragover", (e) => {
   e.preventDefault();
 });
+
+function calculatePlace(x, y, player) {
+  let potentialPlaces = [];
+  for (let i = 0; i < dragLength; i++) {
+    potentialPlaces.push([x, y + i]);
+  }
+  return player.gameboard.canPlaceAt(potentialPlaces);
+}
+
+function handleDragOver(x, y, player) {
+  if (calculatePlace(x, y, player)) {
+    let potentialPlaces = [];
+    for (let i = 0; i < dragLength; i++) {
+      potentialPlaces.push([x, y + i]);
+    }
+    potentialPlaces.forEach((coord) => {
+      const x = coord[0];
+      const y = coord[1];
+      const targetNode = document.querySelector(`[data-xy="${x},${y}"]`);
+      targetNode.classList.add("dragover");
+    });
+  }
+}
