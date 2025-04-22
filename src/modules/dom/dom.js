@@ -103,11 +103,6 @@ draggables.forEach((draggable) => {
   });
 });
 
-const gameboards = document.getElementsByClassName("gameboard");
-gameboards[0].addEventListener("dragover", (e) => {
-  e.preventDefault();
-});
-
 function calculatePlace(x, y, player) {
   let potentialPlaces = [];
   for (let i = 0; i < dragLength; i++) {
