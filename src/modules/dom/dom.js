@@ -84,11 +84,7 @@ export function renderGameboard(player) {
           });
         });
 
-        cell.addEventListener("drop", (e) => {
-          player.gameboard.placeShip([[i, j]]);
-          e.preventDefault();
-          updateRender(player);
-        });
+        cell.addEventListener("drop", (e) => handleDrop(e, i, j, player));
       }
 
       field.appendChild(cell);
@@ -132,5 +128,17 @@ function handleDragOver(x, y, player) {
       const targetNode = document.querySelector(`[data-xy="${x},${y}"]`);
       targetNode.classList.add("dragover");
     });
+  }
+}
+
+function handleDrop(e, x, y, player) {
+  e.preventDefault();
+  if (calculatePlace(x, y, player)) {
+    let potentialPlaces = [];
+    for (let i = 0; i < dragLength; i++) {
+      potentialPlaces.push([x, y + i]);
+    }
+    player.gameboard.placeShip(potentialPlaces);
+    updateRender(player);
   }
 }
