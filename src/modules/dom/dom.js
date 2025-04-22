@@ -2,15 +2,20 @@ import { restartGame, playerRound } from "../controller/controller";
 
 let dragLength;
 let rotated = false;
+let drops = [4, 3, 2, 1];
 
 const draggables = document.querySelectorAll(".draggable");
 const restartBtn = document.getElementById("restart");
-restartBtn.addEventListener("click", restartGame);
+restartBtn.addEventListener("click", () => {
+  drops = [4, 3, 2, 1];
+  restartGame();
+});
 
 export function updateRender(player) {
   const fieldNodes = document.getElementsByClassName("gameboard");
   const field = player.type !== "cpu" ? fieldNodes[0] : fieldNodes[1];
   field.innerHTML = "";
+  checkDrops();
   renderGameboard(player);
 }
 
@@ -41,6 +46,18 @@ export function blockBoards() {
   const fieldNodes = document.getElementsByClassName("gameboard");
   fieldNodes[0].classList.add("disabled");
   fieldNodes[1].classList.add("disabled");
+}
+
+function checkDrops() {
+  const dropElements = document.querySelectorAll(".drop");
+  console.log(dropElements);
+  for (let i = 0; i < dropElements.length; i++) {
+    if (drops[i] === 0) {
+      dropElements[i].classList.add("hidden");
+    } else {
+      dropElements[i].classList.remove("hidden");
+    }
+  }
 }
 
 export function renderGameboard(player) {
@@ -126,6 +143,8 @@ function handleDrop(e, x, y, player) {
   if (calculatePlace(x, y, player)) {
     let potentialPlaces = fillPotentialPlaces(x, y);
     player.gameboard.placeShip(potentialPlaces);
+    drops[dragLength - 1] -= 1;
+    if (dragLength === 6) drops[3] -= 1;
     updateRender(player);
   }
 }
