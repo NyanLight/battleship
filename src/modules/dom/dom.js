@@ -1,6 +1,7 @@
 import { restartGame, playerRound } from "../controller/controller";
 
 let dragLength;
+let rotated = false;
 
 const draggables = document.querySelectorAll(".draggable");
 const restartBtn = document.getElementById("restart");
@@ -104,19 +105,13 @@ draggables.forEach((draggable) => {
 });
 
 function calculatePlace(x, y, player) {
-  let potentialPlaces = [];
-  for (let i = 0; i < dragLength; i++) {
-    potentialPlaces.push([x, y + i]);
-  }
+  let potentialPlaces = fillPotentialPlaces(x, y);
   return player.gameboard.canPlaceAt(potentialPlaces);
 }
 
 function handleDragOver(x, y, player) {
   if (calculatePlace(x, y, player)) {
-    let potentialPlaces = [];
-    for (let i = 0; i < dragLength; i++) {
-      potentialPlaces.push([x, y + i]);
-    }
+    let potentialPlaces = fillPotentialPlaces(x, y);
     potentialPlaces.forEach((coord) => {
       const x = coord[0];
       const y = coord[1];
@@ -129,11 +124,36 @@ function handleDragOver(x, y, player) {
 function handleDrop(e, x, y, player) {
   e.preventDefault();
   if (calculatePlace(x, y, player)) {
-    let potentialPlaces = [];
-    for (let i = 0; i < dragLength; i++) {
-      potentialPlaces.push([x, y + i]);
-    }
+    let potentialPlaces = fillPotentialPlaces(x, y);
     player.gameboard.placeShip(potentialPlaces);
     updateRender(player);
   }
+}
+
+function fillPotentialPlaces(x, y) {
+  let potentialPlaces = [];
+  for (let i = 0; i < dragLength; i++) {
+    if (!rotated) {
+      potentialPlaces.push([x, y + i]);
+    } else {
+      potentialPlaces.push([x + i, y]);
+    }
+  }
+  return potentialPlaces;
+}
+
+const rotateBtn = document.getElementById("rotateBtn");
+rotateBtn.addEventListener("click", () => handleRotate());
+window.addEventListener("keydown", (e) => {
+  const key = e.key.toLowerCase();
+  if (key === "r") handleRotate();
+});
+
+function handleRotate() {
+  const ships = document.getElementsByClassName("drop");
+  const shipsArray = Array.from(ships);
+  shipsArray.forEach((ship) => {
+    ship.classList.toggle("rotated");
+  });
+  rotated = !rotated;
 }

@@ -103,6 +103,10 @@ h1 {
   flex-direction: row;
 }
 
+.rotated {
+  flex-direction: column;
+}
+
 .hidden {
   visibility: hidden;
   opacity: 0%;
