@@ -42,6 +42,8 @@ export function toggleRestart() {
 
 export function resetStyles() {
   const fieldNodes = document.getElementsByClassName("gameboard");
+  const dropElements = document.querySelectorAll(".drop");
+  dropElements.forEach((drop) => drop.classList.remove("hidden"));
   fieldNodes[0].classList.remove("disabled");
   fieldNodes[1].classList.add("disabled");
 }
