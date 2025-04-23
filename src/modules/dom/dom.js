@@ -1,4 +1,8 @@
-import { restartGame, playerRound } from "../controller/controller";
+import {
+  restartGame,
+  playerRound,
+  computerRound,
+} from "../controller/controller";
 
 let dragLength;
 let rotated = false;
@@ -48,9 +52,21 @@ export function blockBoards() {
   fieldNodes[1].classList.add("disabled");
 }
 
+function isDeployOver() {
+  console.log("enter the function");
+  for (const drop of drops) {
+    console.log(drops);
+    if (drop !== 0) return false;
+  }
+  return true;
+}
+
+function handleDeployEnd() {
+  if (isDeployOver()) computerRound();
+}
+
 function checkDrops() {
   const dropElements = document.querySelectorAll(".drop");
-  console.log(dropElements);
   for (let i = 0; i < dropElements.length; i++) {
     if (drops[i] === 0) {
       dropElements[i].classList.add("hidden");
@@ -143,8 +159,12 @@ function handleDrop(e, x, y, player) {
   if (calculatePlace(x, y, player)) {
     let potentialPlaces = fillPotentialPlaces(x, y);
     player.gameboard.placeShip(potentialPlaces);
-    drops[dragLength - 1] -= 1;
-    if (dragLength === 6) drops[3] -= 1;
+    if (dragLength !== 6) {
+      drops[dragLength - 1] -= 1;
+    } else {
+      drops[3] -= 1;
+    }
+    handleDeployEnd();
     updateRender(player);
   }
 }

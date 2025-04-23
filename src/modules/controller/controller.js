@@ -53,7 +53,7 @@ export function playerRound(x, y) {
   }
 }
 
-function computerRound() {
+export function computerRound() {
   setTimeout(() => {
     const [x, y] = getCpuTurn();
     player.gameboard.receiveAttack(x, y);
@@ -94,10 +94,6 @@ function randomPlace(length) {
 }
 
 export function playGame() {
-  player.gameboard.placeShip([
-    [0, 0],
-    [0, 1],
-  ]);
   cpu.gameboard.placeShip(randomPlace(1));
   cpu.gameboard.placeShip(randomPlace(1));
   cpu.gameboard.placeShip(randomPlace(1));
@@ -108,9 +104,6 @@ export function playGame() {
   cpu.gameboard.placeShip(randomPlace(4));
   cpu.gameboard.placeShip(randomPlace(4));
   cpu.gameboard.placeShip(randomPlace(6));
-
   renderGameboard(player);
   renderGameboard(cpu);
-
-  computerRound();
 }
