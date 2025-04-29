@@ -33,6 +33,13 @@ export class Gameboard {
     return true;
   }
 
+  canReceiveAttackAt(x, y) {
+    const cell = this.cells[x][y];
+    if (cell !== undefined && cell.status !== "hit" && cell.status !== "missed")
+      return true;
+    return false;
+  }
+
   placeShip(array) {
     this.heads.push(array[0]);
     const ship = new Ship(array.length);

@@ -21,12 +21,9 @@ export function restartGame() {
   playGame();
 }
 
-function getCpuTurn() {
+export function getCpuTurn() {
   let [x, y] = randomCoordinates();
-  while (
-    player.gameboard.cells[x][y].status !== "ship" &&
-    player.gameboard.cells[x][y].status !== "empty"
-  ) {
+  while (!player.gameboard.canReceiveAttackAt(x, y)) {
     [x, y] = randomCoordinates();
   }
   return [x, y];
@@ -55,7 +52,7 @@ export function playerRound(x, y) {
 
 export function computerRound() {
   setTimeout(() => {
-    const [x, y] = getCpuTurn();
+    const [x, y] = cpu.ai.chooseAttack();
     player.gameboard.receiveAttack(x, y);
     updateRender(player);
     if (player.gameboard.cells[x][y].status !== "hit") {
@@ -63,9 +60,11 @@ export function computerRound() {
       toggleBoard();
     } else if (checkWin(cpu)) {
       updateStatus("Cpu is a winner!");
+      cpu.ai.clearLog();
       blockBoards();
       toggleRestart();
     } else {
+      cpu.ai.log([x, y]);
       updateStatus("Hit! CPU strike again!");
       computerRound();
     }
