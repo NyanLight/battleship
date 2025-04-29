@@ -64,7 +64,9 @@ export function computerRound() {
       blockBoards();
       toggleRestart();
     } else {
-      cpu.ai.log([x, y]);
+      player.gameboard.cells[x][y].ship.isSunk() 
+        ? cpu.ai.clearLog()
+        : cpu.ai.log([x, y]);
       updateStatus("Hit! CPU strike again!");
       computerRound();
     }
