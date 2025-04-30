@@ -46,7 +46,7 @@ export function resetStyles() {
   dropElements.forEach((drop) => drop.classList.remove("hidden"));
   fieldNodes[0].classList.remove("disabled");
   fieldNodes[1].classList.add("disabled");
-  rotateBtn.classList.toggle('hidden');
+  rotateBtn.classList.toggle("hidden");
 }
 
 export function blockBoards() {
@@ -60,12 +60,12 @@ function isDeployOver() {
     if (drop !== 0) return false;
   }
   return true;
-} 
+}
 
 function handleDeployEnd() {
   if (isDeployOver()) {
     computerRound();
-    rotateBtn.classList.toggle('hidden');
+    rotateBtn.classList.toggle("hidden");
   }
 }
 
@@ -96,7 +96,10 @@ export function renderGameboard(player) {
       } else if (gameboard.cells[i][j].status === "hit") {
         cell.classList.toggle("hit");
         cell.textContent = "X";
-      } else if (gameboard.cells[i][j].status === "ship" && player.type !== 'cpu') {
+      } else if (
+        gameboard.cells[i][j].status === "ship" &&
+        player.type !== "cpu"
+      ) {
         cell.classList.toggle("ship");
       }
       if (
@@ -189,16 +192,16 @@ const rotateBtn = document.getElementById("rotateBtn");
 rotateBtn.addEventListener("click", () => handleRotate());
 window.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
-  if (key === "r" || key === 'к') handleRotate();
+  if (key === "r" || key === "к") handleRotate();
 });
 
 function handleRotate() {
   const ships = document.getElementsByClassName("drop");
-  const drops = document.getElementById('drops');
+  const drops = document.getElementById("drops");
   const shipsArray = Array.from(ships);
   shipsArray.forEach((ship) => {
     ship.classList.toggle("rotated");
   });
-  drops.classList.toggle('rotated');
+  drops.classList.toggle("rotated");
   rotated = !rotated;
 }
