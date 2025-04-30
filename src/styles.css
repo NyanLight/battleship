@@ -49,10 +49,6 @@ h1 {
   font-weight: bold;
 }
 
-.drops {
-  padding-top: 1rem;
-  align-items: center;
-}
 
 
 .dragging {
@@ -104,9 +100,11 @@ h1 {
 .drops {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: row;
   width: 30%;
   gap: 1rem;
+  padding-top: 1rem;
 }
 
 .dragover {

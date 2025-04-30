@@ -46,6 +46,7 @@ export function resetStyles() {
   dropElements.forEach((drop) => drop.classList.remove("hidden"));
   fieldNodes[0].classList.remove("disabled");
   fieldNodes[1].classList.add("disabled");
+  rotateBtn.classList.toggle('hidden');
 }
 
 export function blockBoards() {
@@ -62,7 +63,10 @@ function isDeployOver() {
 } 
 
 function handleDeployEnd() {
-  if (isDeployOver()) computerRound();
+  if (isDeployOver()) {
+    computerRound();
+    rotateBtn.classList.toggle('hidden');
+  }
 }
 
 function checkDrops() {
@@ -190,9 +194,11 @@ window.addEventListener("keydown", (e) => {
 
 function handleRotate() {
   const ships = document.getElementsByClassName("drop");
+  const drops = document.getElementById('drops');
   const shipsArray = Array.from(ships);
   shipsArray.forEach((ship) => {
     ship.classList.toggle("rotated");
   });
+  drops.classList.toggle('rotated');
   rotated = !rotated;
 }
