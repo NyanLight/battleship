@@ -10,6 +10,11 @@ body {
   background-size: cover;
 }
 
+main {
+  max-width: 1300px;
+  margin: auto;
+}
+
 h1 {
   text-align: center;
   font-size: 5.5rem;
@@ -20,6 +25,7 @@ h1 {
   justify-content: space-around;
   margin-bottom: 2rem;
 }
+
 
 .player {
   font-size: 2.5rem;
@@ -45,7 +51,9 @@ h1 {
 
 .drops {
   padding-top: 1rem;
+  align-items: center;
 }
+
 
 .dragging {
   opacity: 60%;
@@ -53,11 +61,12 @@ h1 {
 
 .btnContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
-.restart {
+.button {
   padding: 1rem;
   font-size: 1.8rem;
   font-weight: bold;
@@ -69,14 +78,14 @@ h1 {
     4px 4px 0 0 #000;
 }
 
-.restart:active {
+.button:active {
   transform: scale(0.9);
   transition: 0.1s ease-in-out;
 }
 
 .cell {
-  height: 50px;
-  width: 50px;
+  height: 2rem;
+  width: 2rem;
   outline: 5px solid #4f402d;
   background-color: #4f402d96;
   display: flex;
@@ -88,9 +97,15 @@ h1 {
   cursor: move;
 }
 
+.deployment {
+  width: 30%;
+}
+
 .drops {
   display: flex;
+  justify-content: center;
   flex-direction: row;
+  width: 30%;
   gap: 1rem;
 }
 
