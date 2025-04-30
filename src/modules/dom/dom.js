@@ -94,7 +94,7 @@ export function renderGameboard(player) {
       } else if (gameboard.cells[i][j].status === "hit") {
         cell.classList.toggle("hit");
         cell.textContent = "X";
-      } else if (gameboard.cells[i][j].status === "ship") {
+      } else if (gameboard.cells[i][j].status === "ship" && player.type !== 'cpu') {
         cell.classList.toggle("ship");
       }
       if (
