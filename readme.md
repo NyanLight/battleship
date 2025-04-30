@@ -7,6 +7,10 @@ It's classic battleship game written in JavaScript, the final project of JavaScr
   * Drag and drop is implemented! 
   * Computer attacks using logic from separate class, not just random coordinates.
   * Cool arcade-like design.
+
+---
+![Screenshot from game here](./src/assets/image.png)
+---
   
   ## How to use
 
