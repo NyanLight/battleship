@@ -4,9 +4,55 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Battleship</title>
-    <script defer src="main.js"></script>
-  </head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  <script defer src="main.js"></script></head>
   <body>
-    <div></div>
+    <header>
+      <h1>BATTLESHIP</h1>
+    </header>
+    <main>
+      <h2 class="status" id="status">Place the ships! Press R for rotate :)</h2>
+      <div class="container">
+        <div class="field">
+          <h2 class="player">Player</h2>
+          <div class="gameboard"></div>
+        </div>
+        <div id="drops" class="drops rotated">
+          <div class="drop draggable" draggable="true">
+            <div class="cell ship"></div>
+          </div>
+          <div class="drop draggable" draggable="true">
+            <div class="cell ship"></div>
+            <div class="cell ship"></div>
+          </div>
+          <div class="drop draggable" draggable="true">
+            <div class="cell ship"></div>
+            <div class="cell ship"></div>
+            <div class="cell ship"></div>
+          </div>
+          <div class="drop draggable" draggable="true">
+            <div class="cell ship"></div>
+            <div class="cell ship"></div>
+            <div class="cell ship"></div>
+            <div class="cell ship"></div>
+            <div class="cell ship"></div>
+            <div class="cell ship"></div>
+          </div>
+        </div>
+        <div class="field">
+          <h2 class="player">CPU</h2>
+          <div class="gameboard disabled"></div>
+        </div>
+      </div>
+      <div class="btnContainer">
+        <button id="restart" class="button hidden">RESTART</button>
+        <button id="rotateBtn" class="button">ROTATE</button>
+      </div>
+    </main>
   </body>
 </html>
