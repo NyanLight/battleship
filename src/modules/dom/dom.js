@@ -55,13 +55,11 @@ export function blockBoards() {
 }
 
 function isDeployOver() {
-  console.log("enter the function");
   for (const drop of drops) {
-    console.log(drops);
     if (drop !== 0) return false;
   }
   return true;
-}
+} 
 
 function handleDeployEnd() {
   if (isDeployOver()) computerRound();
