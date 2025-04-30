@@ -187,7 +187,7 @@ const rotateBtn = document.getElementById("rotateBtn");
 rotateBtn.addEventListener("click", () => handleRotate());
 window.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
-  if (key === "r") handleRotate();
+  if (key === "r" || key === 'к') handleRotate();
 });
 
 function handleRotate() {
